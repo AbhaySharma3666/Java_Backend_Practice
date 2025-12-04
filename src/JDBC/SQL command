@@ -1,0 +1,15 @@
+### SQL Commands Required Before Running the JDBC File
+
+        Below SQL commands are important before running your JDBC program.
+        You must create the database and table first, and then run your Java file.
+        """
+           create database college;
+           use college;
+
+           create table student (
+               id int primary key,
+               name varchar(60)
+           );
+
+           select * from student;
+        """
