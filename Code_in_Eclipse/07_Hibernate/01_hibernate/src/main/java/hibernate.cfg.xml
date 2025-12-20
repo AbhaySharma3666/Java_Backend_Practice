@@ -26,6 +26,6 @@
 		
 		<property name="hibernate.show_sql">true</property>
 		<!-- Mapped entity classes -->
-		<mapping class="com.hibernate.entity.Student" />
+		<mapping class="com.hibernate.Student" />
 	</session-factory>
 </hibernate-configuration>
