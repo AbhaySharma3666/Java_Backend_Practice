@@ -30,7 +30,7 @@ public class StudentController {
         repo.save(student);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}    ")
     public void deleteStudent (@PathVariable int id){
         Student student = repo.findById(id).get();
         repo.delete(student);
