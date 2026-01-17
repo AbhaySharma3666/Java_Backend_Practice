@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2 th:if="${age > 17}">You are Free to go anywhere</h2>
+<h2 th:unless="${age > 17}">You are not Free to go anywhere</h2>
+</body>
+</html>
