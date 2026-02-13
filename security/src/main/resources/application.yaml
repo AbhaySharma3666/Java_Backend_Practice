@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: security
+
+#  security:
+#    user:
+#      name: Abhay
+#      password: 12345
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/empl1
+    username: root
+    password: mysql
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        dialect:
+
+
+
+
+server:
+  port: 1920
