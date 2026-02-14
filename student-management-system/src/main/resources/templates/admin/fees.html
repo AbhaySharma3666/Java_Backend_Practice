@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fee Management</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .header { background: #333; color: white; padding: 15px; margin-bottom: 20px; }
+        .form-section { background: #f4f4f4; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+        input, select { padding: 8px; margin: 5px; }
+        button { padding: 10px 20px; background: #28a745; color: white; border: none; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #333; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Fee Management</h1>
+</div>
+
+<div class="form-section">
+    <h3>Add Fee</h3>
+    <form th:action="@{/admin/fees/save}" method="post">
+        <select name="student.id" required>
+            <option value="">Select Student</option>
+            <option th:each="s : ${students}" th:value="${s.id}" th:text="${s.name}"></option>
+        </select>
+        <input type="text" name="feeType" placeholder="Fee Type (e.g., Tuition, Library)" required/>
+        <input type="number" name="amount" placeholder="Amount" step="0.01" required/>
+        <input type="date" name="dueDate" placeholder="Due Date"/>
+        <select name="status" required>
+            <option value="Pending">Pending</option>
+            <option value="Paid">Paid</option>
+        </select>
+        <button type="submit">Add Fee</button>
+    </form>
+</div>
+
+<h3>All Fees</h3>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Student</th>
+            <th>Fee Type</th>
+            <th>Amount</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="f : ${fees}">
+            <td th:text="${f.id}">1</td>
+            <td th:text="${f.student?.name}">John</td>
+            <td th:text="${f.feeType ?: 'N/A'}">Tuition</td>
+            <td th:text="${f.amount}">5000</td>
+            <td th:text="${f.dueDate ?: 'N/A'}">2024-01-01</td>
+            <td th:text="${f.status}">Pending</td>
+            <td>
+                <a th:href="@{/admin/fees/qr/{id}(id=${f.id})}" style="color: #007bff; margin-right: 10px;">QR Code</a>
+                <a th:href="@{/admin/fees/receipt/{id}(id=${f.id})}" style="color: #28a745;">Receipt</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="/admin/dashboard">← Back</a>
+
+</body>
+</html>

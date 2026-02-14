@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <style>
+        body { font-family: Arial; margin: 0; }
+        .header { background: #2c3e50; color: white; padding: 15px 30px; }
+        .sidebar { width: 200px; background: #34495e; color: white; height: calc(100vh - 60px); position: fixed; }
+        .sidebar a { display: block; padding: 15px; color: white; text-decoration: none; border-bottom: 1px solid #2c3e50; }
+        .sidebar a:hover { background: #2c3e50; }
+        .content { margin-left: 200px; padding: 30px; }
+        .info-card { background: #f4f4f4; padding: 20px; margin: 10px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Student Dashboard</h1>
+    <span th:text="${#authentication.name}">Student</span> | <a href="/logout" style="color: white;">Logout</a>
+</div>
+
+<div class="sidebar">
+    <a href="/student/dashboard">🏠 Dashboard</a>
+    <a href="/student/attendance">📅 Attendance</a>
+    <a href="/student/marks">📊 Marks</a>
+    <a href="/student/fees">💰 Fees</a>
+    <a href="/student/timetable">🕐 Timetable</a>
+    <a href="/student/notices">📢 Notices</a>
+</div>
+
+<div class="content">
+    <h2>Welcome, <span th:text="${student?.name}">Student</span></h2>
+    
+    <div class="info-card">
+        <h3>Profile Information</h3>
+        <p><strong>Roll No:</strong> <span th:text="${student?.rollNo}">-</span></p>
+        <p><strong>Email:</strong> <span th:text="${student?.email}">-</span></p>
+        <p><strong>Department:</strong> <span th:text="${student?.department?.name}">-</span></p>
+    </div>
+
+    <div class="info-card">
+        <h3>Enrolled Courses</h3>
+        <ul>
+            <li th:each="e : ${enrollments}">
+                <span th:text="${e.course?.name}">Course</span> - Year <span th:text="${e.year}">1</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

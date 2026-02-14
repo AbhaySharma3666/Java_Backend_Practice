@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty Management</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .header { background: #333; color: white; padding: 15px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #333; color: white; }
+        .btn { padding: 5px 10px; text-decoration: none; border-radius: 3px; margin: 2px; }
+        .edit-btn { background: #007bff; color: white; }
+        .delete-btn { background: #dc3545; color: white; }
+        .add-btn { display: inline-block; padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Faculty Management</h1>
+</div>
+
+<a href="/admin/faculty/add" class="add-btn">+ Add Faculty</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Department</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="f : ${facultyList}">
+            <td th:text="${f.id}">1</td>
+            <td th:text="${f.name}">Dr. Smith</td>
+            <td th:text="${f.email}">smith@college.edu</td>
+            <td th:text="${f.phone}">1234567890</td>
+            <td th:text="${f.department?.name}">CS</td>
+            <td>
+                <a th:href="@{/admin/faculty/edit/{id}(id=${f.id})}" class="btn edit-btn">Edit</a>
+                <a th:href="@{/admin/faculty/delete/{id}(id=${f.id})}" class="btn delete-btn">Delete</a>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(facultyList)}">
+            <td colspan="6" style="text-align: center;">No faculty found</td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="/admin/dashboard">← Back</a>
+
+</body>
+</html>

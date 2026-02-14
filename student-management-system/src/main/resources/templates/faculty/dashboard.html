@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty Dashboard</title>
+    <style>
+        body { font-family: Arial; margin: 0; }
+        .header { background: #2c3e50; color: white; padding: 15px 30px; }
+        .sidebar { width: 200px; background: #34495e; color: white; height: calc(100vh - 60px); position: fixed; }
+        .sidebar a { display: block; padding: 15px; color: white; text-decoration: none; border-bottom: 1px solid #2c3e50; }
+        .sidebar a:hover { background: #2c3e50; }
+        .content { margin-left: 200px; padding: 30px; }
+        .action-card { background: #f4f4f4; padding: 20px; margin: 10px 0; border-radius: 5px; }
+        .action-btn { display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; margin: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Faculty Dashboard</h1>
+    <span th:text="${#authentication.name}">Faculty</span> | <a href="/logout" style="color: white;">Logout</a>
+</div>
+
+<div class="sidebar">
+    <a href="/faculty/dashboard">🏠 Dashboard</a>
+    <a href="/faculty/attendance">📅 Mark Attendance</a>
+    <a href="/faculty/marks">📊 Upload Marks</a>
+    <a href="/faculty/timetable">🕐 Timetable</a>
+    <a href="/faculty/notices">📢 Notices</a>
+</div>
+
+<div class="content">
+    <h2>Welcome, Faculty</h2>
+    
+    <div class="action-card">
+        <h3>Quick Actions</h3>
+        <a href="/faculty/attendance" class="action-btn">Mark Attendance</a>
+        <a href="/faculty/marks" class="action-btn">Upload Marks</a>
+    </div>
+
+    <div class="action-card">
+        <h3>Assigned Subjects</h3>
+        <ul>
+            <li th:each="s : ${subjects}">
+                <span th:text="${s.name}">Subject</span> - <span th:text="${s.course?.name}">Course</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

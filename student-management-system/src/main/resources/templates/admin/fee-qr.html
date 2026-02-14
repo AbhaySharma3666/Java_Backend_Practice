@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment QR Code</title>
+    <style>
+        body { font-family: Arial; margin: 20px; text-align: center; }
+        .header { background: #333; color: white; padding: 15px; margin-bottom: 20px; }
+        .qr-container { background: #f4f4f4; padding: 30px; border-radius: 10px; display: inline-block; }
+        .fee-details { margin: 20px 0; text-align: left; }
+        img { border: 2px solid #333; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Payment QR Code</h1>
+</div>
+
+<div class="qr-container">
+    <div class="fee-details">
+        <p><strong>Student:</strong> <span th:text="${fee.student.name}"></span></p>
+        <p><strong>Fee Type:</strong> <span th:text="${fee.feeType}"></span></p>
+        <p><strong>Amount:</strong> ₹<span th:text="${fee.amount}"></span></p>
+        <p><strong>Due Date:</strong> <span th:text="${fee.dueDate}"></span></p>
+    </div>
+    <img th:src="'data:image/png;base64,' + ${qrCode}" alt="Payment QR Code"/>
+    <p>Scan to pay</p>
+</div>
+
+<br/>
+<a href="/admin/fees">← Back to Fees</a>
+
+</body>
+</html>

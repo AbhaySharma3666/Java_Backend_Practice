@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mark Attendance</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .header { background: #333; color: white; padding: 15px; margin-bottom: 20px; }
+        .form-section { background: #f4f4f4; padding: 20px; border-radius: 5px; }
+        select, button { padding: 10px; margin: 10px 5px; }
+        button { background: #28a745; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Mark Attendance</h1>
+</div>
+
+<div class="form-section">
+    <form th:action="@{/faculty/attendance/save}" method="post">
+        <select name="student.id" required>
+            <option value="">Select Student</option>
+            <option th:each="s : ${students}" th:value="${s.id}" th:text="${s.name}"></option>
+        </select>
+        <select name="subject.id" required>
+            <option value="">Select Subject</option>
+            <option th:each="sub : ${subjects}" th:value="${sub.id}" th:text="${sub.name}"></option>
+        </select>
+        <input type="date" name="date" required/>
+        <select name="status" required>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+        </select>
+        <button type="submit">Mark</button>
+    </form>
+</div>
+
+<a href="/faculty/dashboard">← Back</a>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+USE college;
+
+ALTER TABLE fees ADD COLUMN fee_type VARCHAR(50);
+ALTER TABLE fees ADD COLUMN due_date DATE;

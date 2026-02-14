@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Courses</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background: #333; color: white; padding: 15px; margin-bottom: 20px; }
+        .form-section { background: #f4f4f4; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+        input, select { padding: 8px; margin-right: 10px; margin-bottom: 10px; }
+        input[type="text"] { width: 250px; }
+        input[type="number"] { width: 100px; }
+        button { padding: 8px 20px; background: #28a745; color: white; border: none; cursor: pointer; border-radius: 3px; }
+        button:hover { background: #218838; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #333; color: white; }
+        .back-link { display: inline-block; margin-top: 20px; color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Manage Courses</h1>
+</div>
+
+<div class="form-section">
+    <h3>Add New Course</h3>
+    <form th:action="@{/admin/courses/save}" method="post">
+        <div>
+            <input type="text" name="name" placeholder="Course Name" required/>
+            <input type="number" name="duration" placeholder="Duration (years)" required/>
+            <select name="department.id" required>
+                <option value="">Select Department</option>
+                <option th:each="dept : ${departments}" 
+                        th:value="${dept.id}" 
+                        th:text="${dept.name}">Department</option>
+            </select>
+            <button type="submit">Add Course</button>
+        </div>
+    </form>
+</div>
+
+<h3>All Courses</h3>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Duration (Years)</th>
+            <th>Department</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="course : ${courses}">
+            <td th:text="${course.id}">1</td>
+            <td th:text="${course.name}">B.Tech CS</td>
+            <td th:text="${course.duration}">4</td>
+            <td th:text="${course.department?.name}">Computer Science</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(courses)}">
+            <td colspan="4" style="text-align: center;">No courses found</td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="/admin/dashboard" class="back-link">← Back to Dashboard</a>
+
+</body>
+</html>

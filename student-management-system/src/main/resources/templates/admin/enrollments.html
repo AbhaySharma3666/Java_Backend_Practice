@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Enrollments</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .header { background: #333; color: white; padding: 15px; margin-bottom: 20px; }
+        .form-section { background: #f4f4f4; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+        input, select { padding: 8px; margin: 5px; width: 200px; }
+        button { padding: 10px 20px; background: #28a745; color: white; border: none; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #333; color: white; }
+        .delete-btn { background: #dc3545; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Student Enrollments</h1>
+</div>
+
+<div class="form-section">
+    <h3>Enroll Student</h3>
+    <form th:action="@{/admin/enrollments/save}" method="post">
+        <select name="student.id" required>
+            <option value="">Select Student</option>
+            <option th:each="s : ${students}" th:value="${s.id}" th:text="${s.name}"></option>
+        </select>
+        <select name="course.id" required>
+            <option value="">Select Course</option>
+            <option th:each="c : ${courses}" th:value="${c.id}" th:text="${c.name}"></option>
+        </select>
+        <input type="number" name="year" placeholder="Year" required/>
+        <button type="submit">Enroll</button>
+    </form>
+</div>
+
+<h3>All Enrollments</h3>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Year</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="e : ${enrollments}">
+            <td th:text="${e.id}">1</td>
+            <td th:text="${e.student?.name}">John Doe</td>
+            <td th:text="${e.course?.name}">B.Tech CS</td>
+            <td th:text="${e.year}">2024</td>
+            <td><a th:href="@{/admin/enrollments/delete/{id}(id=${e.id})}" class="delete-btn">Delete</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="/admin/dashboard">← Back to Dashboard</a>
+
+</body>
+</html>

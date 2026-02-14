@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notices</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .header { background: #333; color: white; padding: 15px; margin-bottom: 20px; }
+        .form-section { background: #f4f4f4; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+        input, textarea { padding: 8px; margin: 5px; width: 400px; }
+        textarea { height: 100px; }
+        button { padding: 10px 20px; background: #28a745; color: white; border: none; cursor: pointer; }
+        .notice-card { background: white; border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .delete-btn { background: #dc3545; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Notices & Announcements</h1>
+</div>
+
+<div class="form-section">
+    <h3>Post New Notice</h3>
+    <form th:action="@{/admin/notices/save}" method="post">
+        <input type="text" name="title" placeholder="Notice Title" required/><br/>
+        <textarea name="description" placeholder="Description" required></textarea><br/>
+        <button type="submit">Post Notice</button>
+    </form>
+</div>
+
+<h3>All Notices</h3>
+<div th:each="n : ${notices}" class="notice-card">
+    <h4 th:text="${n.title}">Title</h4>
+    <p th:text="${n.description}">Description</p>
+    <small th:text="${n.createdDate}">Date</small>
+    <a th:href="@{/admin/notices/delete/{id}(id=${n.id})}" class="delete-btn">Delete</a>
+</div>
+
+<a href="/admin/dashboard">← Back</a>
+
+</body>
+</html>

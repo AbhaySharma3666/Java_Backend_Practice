@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Marks Report</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .header { background: #333; color: white; padding: 15px; margin-bottom: 20px; }
+        .filter-section { background: #f4f4f4; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+        select, button { padding: 10px; margin: 5px; }
+        button { background: #007bff; color: white; border: none; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #333; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Marks Report</h1>
+</div>
+
+<div class="filter-section">
+    <form th:action="@{/admin/reports/marks}" method="get">
+        <select name="studentId" required>
+            <option value="">Select Student</option>
+            <option th:each="s : ${students}" th:value="${s.id}" th:text="${s.name}"></option>
+        </select>
+        <button type="submit">Generate Report</button>
+    </form>
+</div>
+
+<div th:if="${marks != null}">
+    <h3>Marks Records</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Exam</th>
+                <th>Marks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="m : ${marks}">
+                <td th:text="${m.subject?.name ?: 'N/A'}"></td>
+                <td th:text="${m.exam?.name ?: 'N/A'}"></td>
+                <td th:text="${m.marks}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<br/>
+<a href="/admin/reports">← Back to Reports</a>
+
+</body>
+</html>

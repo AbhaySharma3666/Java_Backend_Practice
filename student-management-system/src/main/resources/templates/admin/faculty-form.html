@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty Form</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .header { background: #333; color: white; padding: 15px; margin-bottom: 20px; }
+        .form-section { background: #f4f4f4; padding: 20px; border-radius: 5px; max-width: 500px; }
+        input, select { padding: 10px; margin: 10px 0; width: 100%; }
+        button { padding: 10px 20px; background: #28a745; color: white; border: none; cursor: pointer; width: 100%; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Faculty Form</h1>
+</div>
+
+<div class="form-section">
+    <form th:action="@{/admin/faculty/save}" method="post" th:object="${faculty}">
+        <input type="hidden" th:field="*{id}"/>
+        <input type="text" th:field="*{name}" placeholder="Name" required/>
+        <input type="email" th:field="*{email}" placeholder="Email" required/>
+        <input type="text" th:field="*{phone}" placeholder="Phone"/>
+        <select th:field="*{department.id}" required>
+            <option value="">Select Department</option>
+            <option th:each="d : ${departments}" th:value="${d.id}" th:text="${d.name}"></option>
+        </select>
+        <button type="submit">Save</button>
+    </form>
+</div>
+
+<a href="/admin/faculty">← Back</a>
+
+</body>
+</html>

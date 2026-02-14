@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Marks</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .header { background: #333; color: white; padding: 15px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #333; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>My Marks</h1>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Exam</th>
+            <th>Marks</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="m : ${marksList}">
+            <td th:text="${m.subject?.name}">Math</td>
+            <td th:text="${m.exam?.name}">Mid Term</td>
+            <td th:text="${m.marks}">85</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(marksList)}">
+            <td colspan="3" style="text-align: center;">No marks records found</td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="/student/dashboard">← Back</a>
+
+</body>
+</html>

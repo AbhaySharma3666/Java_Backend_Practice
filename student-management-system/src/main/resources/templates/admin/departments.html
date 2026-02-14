@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Departments</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background: #333; color: white; padding: 15px; margin-bottom: 20px; }
+        .form-section { background: #f4f4f4; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+        input[type="text"] { padding: 8px; width: 300px; margin-right: 10px; }
+        button { padding: 8px 20px; background: #28a745; color: white; border: none; cursor: pointer; border-radius: 3px; }
+        button:hover { background: #218838; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #333; color: white; }
+        .back-link { display: inline-block; margin-top: 20px; color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Manage Departments</h1>
+</div>
+
+<div class="form-section">
+    <h3>Add New Department</h3>
+    <form th:action="@{/admin/departments/save}" method="post">
+        <input type="text" name="name" placeholder="Department Name" required/>
+        <button type="submit">Add Department</button>
+    </form>
+</div>
+
+<h3>All Departments</h3>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="dept : ${departments}">
+            <td th:text="${dept.id}">1</td>
+            <td th:text="${dept.name}">Computer Science</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(departments)}">
+            <td colspan="2" style="text-align: center;">No departments found</td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="/admin/dashboard" class="back-link">← Back to Dashboard</a>
+
+</body>
+</html>

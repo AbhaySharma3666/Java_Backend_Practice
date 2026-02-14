@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Attendance</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .header { background: #333; color: white; padding: 15px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #333; color: white; }
+        .present { color: green; font-weight: bold; }
+        .absent { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>My Attendance</h1>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Subject</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="a : ${attendanceList}">
+            <td th:text="${a.date}">2024-01-15</td>
+            <td th:text="${a.subject?.name}">Math</td>
+            <td th:class="${a.status == 'Present' ? 'present' : 'absent'}" th:text="${a.status}">Present</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(attendanceList)}">
+            <td colspan="3" style="text-align: center;">No attendance records found</td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="/student/dashboard">← Back</a>
+
+</body>
+</html>

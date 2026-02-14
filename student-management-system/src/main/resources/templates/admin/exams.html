@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam Management</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .header { background: #333; color: white; padding: 15px; margin-bottom: 20px; }
+        .form-section { background: #f4f4f4; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+        input { padding: 8px; margin: 5px; }
+        button { padding: 10px 20px; background: #28a745; color: white; border: none; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #333; color: white; }
+        .delete-btn { background: #dc3545; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Exam Scheduling</h1>
+</div>
+
+<div class="form-section">
+    <h3>Schedule Exam</h3>
+    <form th:action="@{/admin/exams/save}" method="post">
+        <input type="text" name="name" placeholder="Exam Name" required/>
+        <input type="date" name="examDate" required/>
+        <button type="submit">Schedule</button>
+    </form>
+</div>
+
+<h3>Scheduled Exams</h3>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Exam Name</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="e : ${exams}">
+            <td th:text="${e.id}">1</td>
+            <td th:text="${e.name}">Mid Term</td>
+            <td th:text="${e.examDate}">2024-01-15</td>
+            <td><a th:href="@{/admin/exams/delete/{id}(id=${e.id})}" class="delete-btn">Delete</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="/admin/dashboard">← Back</a>
+
+</body>
+</html>
